@@ -4,6 +4,7 @@ import "./File.css";
 const File = () => {
   const [file, setFile] = useState(null);
   const [downloadLink, setDownloadLink] = useState("");
+  const [copytext,setCopytext] = useState("");
 
   const handleFileChange = (e) => {
     const setfile = e.target.files[0];
@@ -15,6 +16,12 @@ const File = () => {
       return;
     }
   };
+
+  const copyText = async()=>{
+    const copiedText = await navigator.clipboard.writeText(downloadLink);
+    console.log(copiedText);
+    alert('File copied Sucessufully');
+  }
   const handleFile = async (e) => {
     e.preventDefault();
 
@@ -98,8 +105,9 @@ const File = () => {
                 <h2>👇🏻 Download the file</h2>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",border: "1px solid white",marginBottom: "1rem",borderRadius:"10px"}}>
                 <p style={{marginInline:"9px"}}>{downloadLink}</p>
-                  <svg style={{marginInline:"9px"}}
+                  <svg style={{marginInline:"9px",cursor:"pointer"} }
                     xmlns="http://www.w3.org/2000/svg"
+                    onClick={copyText}
                     width="20"
                     height="20"
                     fill="antiquewhite"
